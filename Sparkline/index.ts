@@ -2,7 +2,7 @@ import {IInputs, IOutputs} from "./generated/ManifestTypes";
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {SparklineArea, IProps} from "./SparklineArea";
-import { bool } from "prop-types";
+
 
 export class Sparkline implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
@@ -15,8 +15,10 @@ export class Sparkline implements ComponentFramework.StandardControl<IInputs, IO
 								color: "", 
 								width:0,
 								height:0,
-								fill:true,
-								type:""}
+								fill:false,
+								referenceline:false,
+								referencelinetype:"",
+								sparktype:""}
 	
 	/**
 	 * Empty constructor.
@@ -63,17 +65,11 @@ export class Sparkline implements ComponentFramework.StandardControl<IInputs, IO
 		this.props.width = context.parameters.width.raw || 0;
 		this.props.height = context.parameters.height.raw || 0;
 		
-		switch(typeof(context.parameters.fill.raw))
-		{
-			case "boolean":
-				this.props.fill = context.parameters.fill.raw;
-				break;
-			case "string":
-				this.props.fill = context.parameters.fill.raw.toLowerCase() == "true" ;
-				break;			
-		}
+		this.props.fill = this.GetBoolFrom(context.parameters.fill.raw)
+		this.props.referenceline = this.GetBoolFrom(context.parameters.referenceline.raw);
+		this.props.referencelinetype = context.parameters.referencelinetype.raw || "";
 		
-		this.props.type = context.parameters.type.raw;
+		this.props.sparktype = context.parameters.sparktype.raw;
 
 		ReactDOM.render(
 			React.createElement(SparklineArea, this.props)
@@ -103,5 +99,22 @@ export class Sparkline implements ComponentFramework.StandardControl<IInputs, IO
 	{
 		// Add code to cleanup control if necessary
 		ReactDOM.unmountComponentAtNode(this._container);
+	}
+
+	public GetBoolFrom(prop: any):boolean
+	{
+		switch(typeof(prop))
+		{
+			case "boolean":
+				return prop;
+			case "string":
+				return prop.toLowerCase() == "true" ;
+			case "number":  //Assumes that 1 = true
+					return prop == 1 ;
+			default:
+				return false;	
+			
+		}
+
 	}
 }
