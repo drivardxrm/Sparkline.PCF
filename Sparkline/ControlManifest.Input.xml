@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="XrmVision" constructor="Sparkline" version="0.0.1" display-name-key="Sparkline" description-key="Sparkline control based on react-sparklines" control-type="standard">
+  <control namespace="XrmVision" constructor="Sparkline" version="0.0.2" display-name-key="Sparkline" description-key="Sparkline control based on react-sparklines" control-type="standard">
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
     <!-- <property name="timevalue" display-name-key="Time Value Field" description-key="Bind this property to the field where you want to store the time value" of-type="SingleLine.Text" usage="bound" required="true" /> -->
-    <property name="values" display-name-key="Values" description-key="Bind this property to the field where the values of the sparkline are stored" of-type="SingleLine.Text" usage="input" required="true" default-value="5,10,60,30,35,100"/>
+    <property name="values" display-name-key="Values" description-key="Bind this property to the field where the values of the sparkline are stored" of-type="SingleLine.Text" usage="bound" required="true" default-value="5,10,60,30,35,100"/>
     <property name="separator" display-name-key="Separator" description-key="separator between the values" of-type="SingleLine.Text" usage="input" required="true" default-value="," />
     <property name="color" display-name-key="Color" description-key="main color of the sparkline" of-type="SingleLine.Text" usage="input" required="true" default-value="blue" />
-    <property name="height" display-name-key="Height" description-key="Height of the sparkline" of-type="Whole.None" usage="input" required="true" default-value="25" />
-    <property name="width" display-name-key="Width" description-key="Width of the sparkline" of-type="Whole.None" usage="input" required="true" default-value="100" />
-    <property name="type" display-name-key="Type" description-key="Type of the sparkline" of-type="Enum" usage="input" required="true">
+    <property name="height" display-name-key="Height" description-key="Height of the sparkline" of-type="Whole.None" usage="input" required="true" default-value="50" />
+    <property name="width" display-name-key="Width" description-key="Width of the sparkline" of-type="Whole.None" usage="input" required="true" default-value="200" />
+    <property name="type" display-name-key="Type" description-key="Type of the sparkline" of-type-group="Types" usage="input" required="true">
       <value name="line" display-name-key="Line" description-key="Regular sparkline" default="true">Line</value>
       <value name="rounded" display-name-key="Rounded" description-key="Rounded sparkline">Rounded</value>
       <value name="bar" display-name-key="Bar" description-key="Bars sparkline">Bars</value>
     </property>
-		<property name="fill" display-name-key="Fill" description-key="Fill under the spakline" of-type="TwoOptions" usage="input" required="true" default-value="true"/>
+		<property name="fill" display-name-key="Fill" description-key="Fill under the spakline" of-type-group="Bool" usage="input" required="true" default-value="true">
+      <value name="True" display-name-key="True" description-key="True" default="true">True</value>
+      <value name="False" display-name-key="False" description-key="False">False</value>
+    </property>
+
+    <type-group name="Types">
+      <type>Enum</type>
+      <type>SingleLine.Text</type>
+    </type-group>
+
+    <type-group name="Bool">
+      <type>TwoOptions</type>
+      <type>Enum</type>
+      <type>SingleLine.Text</type>
+    </type-group>
 
     <!-- 
       Property node's of-type attribute can be of-type-group attribute. 

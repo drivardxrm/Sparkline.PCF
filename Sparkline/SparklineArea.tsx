@@ -90,7 +90,7 @@ export class SparklineArea extends React.Component<IProps, IState> {
                     );
                     break;
                 default:
-                    null
+                    return (<div>ERROR: Accepted values for 'Type' are 'Line,Rounded,Bars'</div>)
 
             }
         

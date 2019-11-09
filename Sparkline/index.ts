@@ -2,15 +2,11 @@ import {IInputs, IOutputs} from "./generated/ManifestTypes";
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {SparklineArea, IProps} from "./SparklineArea";
+import { bool } from "prop-types";
 
 export class Sparkline implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
-	//private _value:string;
-	// private _values:string;
-	// private _separator:string;
-	// private _color:string;
-	// private _width:number;
-	// private _height:number;
+	
 
 	private _notifyOutputChanged:() => void;
 	private _container: HTMLDivElement;
@@ -46,23 +42,11 @@ export class Sparkline implements ComponentFramework.StandardControl<IInputs, IO
 		// Add control initialization code
 		this._notifyOutputChanged = notifyOutputChanged;
 		this._container = document.createElement("div");
-		// this.props.values = context.parameters.values.raw || "";
-		// this.props.separator = context.parameters.separator.raw || ",";
-		// this.props.color = context.parameters.separator.raw || "blue";
-		// this.props.width = context.parameters.width.raw || 0;
-		// this.props.height = context.parameters.height.raw || 0;
-
-
 
 		container.appendChild(this._container);
 	}
 
-	// notifyChange(values:string, separator:string, color:string) {
-	// 	this._values = values;
-	// 	this._separator = separator;
-	// 	this._color = color;
-	// 	this._notifyOutputChanged();
-	// }
+	
 
 
 	/**
@@ -72,19 +56,23 @@ export class Sparkline implements ComponentFramework.StandardControl<IInputs, IO
 	public updateView(context: ComponentFramework.Context<IInputs>): void
 	{
 		// Add code to update control view
-		// this._values = context.parameters.values.raw || "";
-		// this._separator = context.parameters.separator.raw || ",";
-		// this._color = context.parameters.color.raw || "blue";
-		// this._width = context.parameters.width.raw || 0;
-		// this._height = context.parameters.height.raw || 0;
-
 
 		this.props.values = context.parameters.values.raw || "";
 		this.props.separator = context.parameters.separator.raw || ",";
 		this.props.color = context.parameters.color.raw || "blue";
 		this.props.width = context.parameters.width.raw || 0;
 		this.props.height = context.parameters.height.raw || 0;
-		this.props.fill = context.parameters.fill.raw;
+		
+		switch(typeof(context.parameters.fill.raw))
+		{
+			case "boolean":
+				this.props.fill = context.parameters.fill.raw;
+				break;
+			case "string":
+				this.props.fill = context.parameters.fill.raw.toLowerCase() == "true" ;
+				break;			
+		}
+		
 		this.props.type = context.parameters.type.raw;
 
 		ReactDOM.render(
