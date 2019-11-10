@@ -47,8 +47,7 @@ export class SparklineArea extends React.Component<IProps, IState> {
                         sparktype:props.sparktype,
 
                         numbers:props.values.split(props.separator).map(Number)}
-                        
-        //this.handleChange = this.handleChange.bind(this);
+                    
     }
 
     componentWillReceiveProps(props: IProps) {
@@ -66,9 +65,7 @@ export class SparklineArea extends React.Component<IProps, IState> {
                         
     }
 
-    // handleChange(e: any) {
-        
-    // }
+    //todo must be a more elegant way
     getReferenceLineType(value:string):'max' | 'min' | 'mean' | 'avg' | 'median' | 'custom'
     {
         console.log(value);
@@ -92,7 +89,7 @@ export class SparklineArea extends React.Component<IProps, IState> {
     }
 
     render() {
-        console.log(this.state.referenceline);
+        
         
         var sparklinesType = <></> ;
         switch (this.state.sparktype)
@@ -125,10 +122,7 @@ export class SparklineArea extends React.Component<IProps, IState> {
         return (
             <Sparklines data={this.state.numbers} 
                         svgWidth={this.state.width}
-                        width={this.state.width}
-                        svgHeight={this.state.height}
-                        height={this.state.height}
-                        >
+                        svgHeight={this.state.height}>
                         
                 {sparklinesType}
                 {sparklinesReferenceLine}
