@@ -1,7 +1,7 @@
 import {IInputs, IOutputs} from "./generated/ManifestTypes";
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {SparklineArea, IProps} from "./SparklineArea";
+import SparklineArea, {IProps} from "./SparklineArea";
 
 
 export class Sparkline implements ComponentFramework.StandardControl<IInputs, IOutputs> {
@@ -17,7 +17,7 @@ export class Sparkline implements ComponentFramework.StandardControl<IInputs, IO
 								height:0,
 								fill:false,
 								referenceline:false,
-								referencelinetype:"",
+								referencelinetype:"median",
 								sparktype:""}
 	
 	/**
@@ -67,7 +67,7 @@ export class Sparkline implements ComponentFramework.StandardControl<IInputs, IO
 		
 		this.props.fill = this.GetBoolFrom(context.parameters.fill.raw)
 		this.props.referenceline = this.GetBoolFrom(context.parameters.referenceline.raw);
-		this.props.referencelinetype = context.parameters.referencelinetype.raw || "";
+		this.props.referencelinetype = this.GetReferenceLineType(context.parameters.referencelinetype.raw || "");
 		
 		this.props.sparktype = context.parameters.sparktype.raw;
 
@@ -81,15 +81,13 @@ export class Sparkline implements ComponentFramework.StandardControl<IInputs, IO
 	 * It is called by the framework prior to a control receiving new data. 
 	 * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as “bound” or “output”
 	 */
-	// public getOutputs(): IOutputs
+	public getOutputs(): IOutputs
 
-	// {
-	// 	return {
-	// 		// values : this._values,
-	// 		// separator : this._separator,
-	// 		// color : this._color
-	// 	};
-	// }
+	{
+		return {
+			
+		};
+	}
 
 	/** 
 	 * Called when the control is to be removed from the DOM tree. Controls should use this call for cleanup.
@@ -117,4 +115,25 @@ export class Sparkline implements ComponentFramework.StandardControl<IInputs, IO
 		}
 
 	}
+
+	public GetReferenceLineType(value:string):'max' | 'min' | 'mean' | 'avg' | 'median' | 'custom'
+    {
+        switch(value.toLowerCase())
+        {
+            case "max":
+                return 'max';
+            case "min":
+                return 'min';
+            case "mean":
+                return 'mean';
+            case "avg":
+                return 'avg';
+            case "median":
+                return 'median';
+
+            default:
+                return 'mean';
+
+        }
+    }
 }

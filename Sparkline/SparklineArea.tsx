@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {Sparklines, SparklinesLine, SparklinesBars, SparklinesCurve, SparklinesReferenceLine, SparklinesNormalBand, SparklinesSpots, SparklinesText} from 'react-sparklines'
+import {Sparklines, SparklinesLine, SparklinesBars, SparklinesCurve, SparklinesReferenceLine} from 'react-sparklines'
+import { useState, useEffect } from "react";
 
 export interface IProps {
     values: string;
@@ -9,130 +10,59 @@ export interface IProps {
     height:number,
     fill:boolean,
     referenceline:boolean,
-    referencelinetype:string,
+    referencelinetype: 'max' | 'min' | 'mean' | 'avg' | 'median' | 'custom',
 
     sparktype:string
     
 }
 
-export interface IState {
-    values: string;
-    separator: string;
-    color:string;
-    width:number,
-    height:number,
-    fill:boolean,
-    referenceline:boolean,
-    referencelinetype:'max' | 'min' | 'mean' | 'avg' | 'median' | 'custom',
+const SparklineArea = (props : IProps): JSX.Element => {
 
-    sparktype:string,
+    //STATE HOOKS VARIABLES
+    const [numbers, setNumbers] = useState<number[]>(props.values.split(props.separator).map(Number));
+    const [sparklineType, setSparklineType] = useState<JSX.Element>(<></>);
+    const [sparklineReferenceLine, setSparklineReferenceLine] = useState<JSX.Element>(<></>);
 
-    numbers:number[]
-}
+    //EFFECT HOOKS
+    useEffect(() => {
 
-export class SparklineArea extends React.Component<IProps, IState> {
+        setNumbers(props.values.split(props.separator).map(Number));    
 
-    constructor(props: Readonly<IProps>) {
-        super(props);
-
-        this.state = { values: props.values, 
-                        separator: props.separator,
-                        color:props.color,
-                        width:props.width,
-                        height:props.height,
-                        fill:props.fill,
-                        referenceline:props.referenceline,
-                        referencelinetype:this.getReferenceLineType(props.referencelinetype),
-  
-                        sparktype:props.sparktype,
-
-                        numbers:props.values.split(props.separator).map(Number)}
-                    
-    }
-
-    componentWillReceiveProps(props: IProps) {
-        this.setState({values : props.values ,
-                        separator: props.separator,
-                        color: props.color,
-                        width:props.width,
-                        height:props.height,
-                        fill:props.fill,
-                        referenceline:props.referenceline,
-                        referencelinetype:this.getReferenceLineType(props.referencelinetype),
-
-                        sparktype:props.sparktype,
-                        numbers:props.values.split(props.separator).map(Number)})
-                        
-    }
-
-    //todo must be a more elegant way
-    getReferenceLineType(value:string):'max' | 'min' | 'mean' | 'avg' | 'median' | 'custom'
-    {
-        console.log(value);
-        switch(value.toLowerCase())
-        {
-            case "max":
-                return 'max';
-            case "min":
-                return 'min';
-            case "mean":
-                return 'mean';
-            case "avg":
-                return 'avg';
-            case "median":
-                return 'median';
-
-            default:
-                return 'mean';
-
-        }
-    }
-
-    render() {
-        
-        
-        var sparklinesType = <></> ;
-        switch (this.state.sparktype)
+        switch (props.sparktype)
         {
             case "Line":
-                sparklinesType = <SparklinesLine color={this.state.color} 
-                                                    style={{fill:this.state.fill?"":"none"}}/>
+                setSparklineType( <SparklinesLine color={props.color} style={{fill:props.fill?"":"none"}}/>);
                 break;
                 
             case "Rounded":
-                sparklinesType = <SparklinesCurve color={this.state.color} 
-                                                    style={{fill:this.state.fill?"":"none"}}/>      
+                setSparklineType( <SparklinesCurve color={props.color}  style={{fill:props.fill?"":"none"}}/> );     
                 break;
 
             case "Bars":
-                sparklinesType = <SparklinesBars style={{fill:this.state.color}}/>
-                    
+                setSparklineType( <SparklinesBars style={{fill:props.color}}/> );
                 break;
             default:
-                return (<div>ERROR: Accepted values for 'SparkType' are 'Line,Rounded,Bars'</div>)
+                break;
 
         }
 
-        var sparklinesReferenceLine = this.state.referenceline == true ? 
-                                        <SparklinesReferenceLine type={this.state.referencelinetype} /> :
-                                        <></> ;
+        props.referenceline == true ? 
+            setSparklineReferenceLine(<SparklinesReferenceLine type={props.referencelinetype} />) :
+            setSparklineReferenceLine(<></>) ;
 
-        
 
-        return (
-            <Sparklines data={this.state.numbers} 
-                        svgWidth={this.state.width}
-                        svgHeight={this.state.height}>
-                        
-                {sparklinesType}
-                {sparklinesReferenceLine}
+    }, [props]);
 
-            </Sparklines>
-        );
-        
-        
-        
 
-    }
+    return (
+        <Sparklines data={numbers} 
+                    svgWidth={props.width}
+                    svgHeight={props.height}>
+                    
+            {sparklineType}
+            {sparklineReferenceLine}
 
+        </Sparklines>
+    );
 }
+export default SparklineArea;
