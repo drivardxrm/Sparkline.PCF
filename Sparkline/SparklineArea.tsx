@@ -11,9 +11,7 @@ export interface IProps {
     fill:boolean,
     referenceline:boolean,
     referencelinetype: 'max' | 'min' | 'mean' | 'avg' | 'median' | 'custom',
-
-    sparktype:string
-    
+    sparktype:string   
 }
 
 const SparklineArea = (props : IProps): JSX.Element => {
