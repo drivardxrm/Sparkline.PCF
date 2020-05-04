@@ -13,7 +13,7 @@ react-sparklines : http://borisyankov.github.io/react-sparklines/
 | Separator         | Separator between each values                                                                | ,       |
 | Color             | Color of the sparkline. Supports literal (ex. blue, red) and RGBA color codes (ex. #da9494)  | blue    |
 | Height            | Height in pixels                                                                             | 100     |
-| Width             | Width in pixel                                                                               | 300     |
+| Width             | Width in pixel (250 max)                                                                              | 250     |
 | SparkType         | Type of the sparkline (Line, Rounded, Bars)                                                  | Line    |
 | Fill              | Fill under the line (true, false)                                                            | true    |
 | ReferenceLine     | Display a reference line (true, false)                                                       | false   |
