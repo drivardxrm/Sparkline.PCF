@@ -58,7 +58,6 @@ export class Sparkline implements ComponentFramework.StandardControl<IInputs, IO
 	public updateView(context: ComponentFramework.Context<IInputs>): void
 	{
 		// Add code to update control view
-
 		this.props.values = context.parameters.values.raw || "";
 		this.props.separator = context.parameters.separator.raw || ",";
 		this.props.color = context.parameters.color.raw || "blue";

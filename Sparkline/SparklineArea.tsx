@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {Sparklines, SparklinesLine, SparklinesBars, SparklinesCurve, SparklinesReferenceLine} from 'react-sparklines'
+import * as React from "react";
+import {Sparklines, SparklinesLine, SparklinesBars, SparklinesCurve, SparklinesReferenceLine} from "react-sparklines"
 import { useState, useEffect } from "react";
 
 export interface IProps {
@@ -53,14 +53,19 @@ const SparklineArea = (props : IProps): JSX.Element => {
 
 
     return (
-        <Sparklines data={numbers} 
-                    svgWidth={props.width}
+        <div>
+            <Sparklines data={numbers} 
+
+                    svgWidth={props.width <= 250 ? props.width : 250}
                     svgHeight={props.height}>
                     
-            {sparklineType}
-            {sparklineReferenceLine}
+                {sparklineType}
+                {sparklineReferenceLine}
 
-        </Sparklines>
+            </Sparklines>
+        </div>
+
+        
     );
 }
 export default SparklineArea;
