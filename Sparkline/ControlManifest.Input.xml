@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="DR" constructor="Sparkline" version="1.0.6" display-name-key="Sparkline" description-key="Sparkline control based on react-sparklines" control-type="standard" preview-image="img/sparkline-preview.png">
+  <control namespace="DR" constructor="Sparkline" version="1.0.8" display-name-key="Sparkline" description-key="Sparkline control based on react-sparklines" control-type="standard" preview-image="img/sparkline-preview.png">
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
     
     <property name="values" display-name-key="Values" description-key="Bind this property to the field where the values of the sparkline are stored" of-type="SingleLine.Text" usage="bound" required="true" default-value="5,10,60,30,35,50,75,50,85,100"/>

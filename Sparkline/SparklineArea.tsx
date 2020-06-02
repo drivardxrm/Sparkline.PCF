@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Sparklines, SparklinesLine, SparklinesBars, SparklinesCurve, SparklinesReferenceLine} from "react-sparklines"
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
 export interface IProps {
     values: string;
@@ -21,8 +21,8 @@ const SparklineArea = (props : IProps): JSX.Element => {
     const [sparklineType, setSparklineType] = useState<JSX.Element>(<></>);
     const [sparklineReferenceLine, setSparklineReferenceLine] = useState<JSX.Element>(<></>);
 
-    //EFFECT HOOKS
-    useEffect(() => {
+    //LAYOUTEFFECT HOOKS - before rendering
+    useLayoutEffect(() => {
 
         setNumbers(props.values.split(props.separator).map(Number));    
 
