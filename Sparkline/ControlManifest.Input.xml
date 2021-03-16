@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="DR" constructor="Sparkline" version="1.0.8" display-name-key="Sparkline" description-key="Sparkline control based on react-sparklines" control-type="standard" preview-image="img/sparkline-preview.png">
+  <control namespace="DR" constructor="Sparkline" version="1.0.10" display-name-key="Sparkline" description-key="Sparkline control based on react-sparklines" control-type="standard" preview-image="img/sparkline-preview.png">
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
     
     <property name="values" display-name-key="Values" description-key="Bind this property to the field where the values of the sparkline are stored" of-type="SingleLine.Text" usage="bound" required="true" default-value="5,10,60,30,35,50,75,50,85,100"/>
@@ -8,6 +8,9 @@
     <property name="color" display-name-key="Color" description-key="main color of the sparkline" of-type="SingleLine.Text" usage="input" required="true" default-value="blue" />
     <property name="height" display-name-key="Height" description-key="Height of the sparkline" of-type="Whole.None" usage="input" required="true" default-value="100" />
     <property name="width" display-name-key="Width" description-key="Width of the sparkline (max 250)" of-type="Whole.None" usage="input" required="true" default-value="250" />
+    <property name="min" display-name-key="Min" description-key="Min value (Optional, leave blank for auto-scale)" of-type="Whole.None" usage="input" required="false" />
+    <property name="max" display-name-key="Max" description-key="Max value (Optional, leave blank for auto-scale)" of-type="Whole.None" usage="input" required="false" />
+
     <property name="sparktype" display-name-key="SparkType" description-key="Type of the sparkline" of-type="Enum" usage="input" required="true">
       <value name="line" display-name-key="Line" description-key="Regular sparkline" default="true">Line</value>
       <value name="rounded" display-name-key="Rounded" description-key="Rounded sparkline">Rounded</value>

@@ -10,15 +10,7 @@ export class Sparkline implements ComponentFramework.StandardControl<IInputs, IO
 
 	private _notifyOutputChanged:() => void;
 	private _container: HTMLDivElement;
-	private props: IProps = { values : "", 
-								separator : "", 
-								color: "", 
-								width:0,
-								height:0,
-								fill:false,
-								referenceline:false,
-								referencelinetype:"median",
-								sparktype:""}
+	private props: IProps = { };
 	
 	/**
 	 * Empty constructor.
@@ -63,10 +55,12 @@ export class Sparkline implements ComponentFramework.StandardControl<IInputs, IO
 		this.props.color = context.parameters.color.raw || "blue";
 		this.props.width = context.parameters.width.raw || 0;
 		this.props.height = context.parameters.height.raw || 0;
+		this.props.min = context.parameters.min.raw == null ? undefined : context.parameters.min.raw;
+		this.props.max = context.parameters.max.raw == null ?  undefined : context.parameters.max.raw;
 		
 		this.props.fill = this.GetBoolFrom(context.parameters.fill.raw)
 		this.props.referenceline = this.GetBoolFrom(context.parameters.referenceline.raw);
-		this.props.referencelinetype = this.GetReferenceLineType(context.parameters.referencelinetype.raw || "");
+		this.props.referencelinetype = this.GetReferenceLineType(context.parameters.referencelinetype.raw);
 		
 		this.props.sparktype = context.parameters.sparktype.raw;
 
