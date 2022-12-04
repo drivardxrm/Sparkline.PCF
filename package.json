@@ -12,8 +12,8 @@
     "@types/node": "^13.13.4",
     "@types/powerapps-component-framework": "^1.2.3",
     "@types/react-sparklines": "^1.7.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-sparklines": "^1.7.0"
   },
   "devDependencies": {
